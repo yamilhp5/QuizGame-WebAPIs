@@ -1,23 +1,30 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.main {
+    background-color: lightcyan;
 }
 
 body {
     background-color: lightskyblue;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
-}
-
-.main {
-    background-color: lightcyan;
 
 }
 
-#start-screen {
+#intro {
     justify-content: center;
     margin-top: 5%;
     display: flex;
@@ -27,33 +34,36 @@ body {
 
 }
 
-.container { 
+p {
+    margin-top: 3px;
+}
+
+.container {
     height: 25%;
     width: 75%;
-    padding: 3%;
+    padding: 5%;
     margin: 3% 3%;
     background: #fff;
     border-radius: 3%;
     align-items: center;
+    justify-content: center;
 }
 
-button {
+#start-game {
     border-radius: 3%;
-    color: blue;
-    padding: auto;
-
-
-
-
-
+    margin-top: 5%;
+    padding: 10px 10px
 }
 
+.button {
+    background: #fff;
+    color: #222;
+    font-weight: 500;
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid #222;
+    margin: 10px 0;
+    text-align: left;
+    border-radius: 4px;
 
-
-.hide {
-    display: none;
-}
-
-.show {
-    display: block;
 }

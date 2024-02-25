@@ -1,27 +1,14 @@
-var timer = 20;
-//QuizQuestions 
-
-var quizQuestionIndex = 0; 
-var correctCounter = 0
-var incorrectCounter = 0 
-var storeName = 0;
-var storeScore = 0; 
-var initials = 0;
-var startQuizEl = document.querySelector("#start-Quiz");
-var quiz = document.querySelector(".quiz");
-var startScreenEl = document.querySelector("#start-screen");
+var startGameEl = document.querySelector("#start-game");
+var questions = document.querySelector("#questions"); 
+var intro = document.querySelector("#intro");
 var questionEl = document.querySelector("#question");
 var choicesEl = document.querySelector("#choices");
-var resultEl = document.querySelector("#result");
+var resultEl = document.querySelector("#results")
 var timerEl = document.querySelector("#timer");
-var buttonEl = document.querySelector("#button");
-var formEl = document.querySelector("#form");
-var nameEl = document.querySelector("#name");
-var scoreEl = document.querySelector("#score");
-var scoreEl2 = document.querySelector(".score")
 
+var timer = 20; 
 
-var quizQuestions = [
+var question = [
     {
         question:"What is the capital of India?",
         choices: ["Dubai", "Buenos Aires", "Delilah", "New Delhi"],
@@ -34,7 +21,7 @@ var quizQuestions = [
     },
     {
         question:"What is the name of the smallest country in the world by area?",
-        choices: ["Puerto Rico", "VaticaN City", "Aruba", "Mykonos"],
+        choices: ["Puerto Rico", "Vatican City", "Aruba", "Mykonos"],
         answer: "Vatican City",
     },
     {
@@ -45,88 +32,70 @@ var quizQuestions = [
 
 ];
 
-var quizQuestionIndex = 0;
+var questionIndex = 0;
 
 function startTimer () {
-    setInterval (function() {
-        if (timer>0) {
-            timer--;
-            timerEl.textContent = timer;
-        } else {
-            endGame();
-
-        }
-    }, 1000);
+    setInterval(function() {
+    if (timer>0) {
+        timer--;
+        timerEl.textContent = timer;
+    } else {
+        endGame();
+    }
+}, 1000);
 }
 
-function startQuiz() {
-    startScreenEl.setAttribute("class", "hide")
-    updateQuestion();
-    quiz.setAttribute("class", "show")
-    timerEl.setAttribute("class", "show")
-    startTimer();    
+    
+
+function startGame() {
+    intro.setAttribute("class", "hide");
+    updateQuestion();  
+    questions.setAttribute("class", "show");
+    timerEl.setAttribute("class", "show");
+    startTimer();
+
 }
 
 function updateQuestion() {
-    questionEl.textContent = quizQuestions[quizQuestionIndex].question;
-    choicesEl.innerHTML = "";
-
-    for (var i = 0; i < quizQuestions[quizQuestionIndex].choices.length; i++) {
-        var listItem = document.createElement("li");
-        var button = document.createElement("button");
-        button.textContent = quizQuestions[quizQuestionIndex].choices[i];
-
-        button.addEventListener("click", handleAn)
-    }
-
-}
-
-
-
-function updateQuestion () {
-    if (quizQuestionIndex === quizQuestions.length) {
-        setTimeout(endGame, 1500);
+    if (questionIndex === question.length) {
+        setTimeout(endGame, 1500); 
         return;
+    } 
 
-    }
-
-
-    questionEl.textContent = quizQuestions[quizQuestionIndex].question;
-    choicesEl.innerHTML = "";
+    questionEl.textContent= question[questionIndex].question;
+    choicesEl.innerHTML = ""; 
     resultEl.innerHTML = "";
-    
 
-    for (var i = 0; i < quizQuestions[quizQuestionIndex].choices.length; i++) {
+    for (var i = 0; i < question[questionIndex].choices.length; i++) {
         var element = document.createElement("li");
-        element.textContent = quizQuestions[quizQuestionIndex].choices[i];
+        element.textContent = question[questionIndex].choices[i];
         choicesEl.appendChild(element);
-    }
 
+    }
+    
 }
 
 function endGame () {
     questions.setAttribute("class", "hide");
-    resultEl.setAttribute ("Game Over");
-    timerEl.setAttribute("class", "hide");
+    resultEl.textContent = "Time's Up!";
+    timerEl.setAttribute = ("class", "hide");
+
 }
 
 choicesEl.addEventListener("click", function (event) {
     var target = event.target;
 
     if (target.matches("li")) {
-        if (target.textContent === quizQuestions[quizQuestionIndex].answer) {
-            resultEl.textContent = "Correct!";
+        if (target.textContent === question[questionIndex].answer) {
+            resultEl.textContent = "Correct!";               
         } else {
             resultEl.textContent = "Incorrect!";
-            timer = timer - 5;
-        
         }
 
         questionIndex++;
-        setTimeout(updateQuestion, 1500);
+        setTimeout(updateQuestion,1500);
+
     }
-});
+} );
 
-
-
-startQuizEl.addEventListener("click", startQuiz);
+startGameEl.addEventListener("click", startGame); 
