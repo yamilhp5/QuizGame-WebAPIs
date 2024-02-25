@@ -45,11 +45,24 @@ var quizQuestions = [
 
 ];
 
+var quizQuestionIndex = 0;
+
+function startTimer () {
+    setInterval (function() {
+        if (timer>0) {
+            timer--;
+            timerEl.textContent = timer;
+        } else {
+            endGame();
+
+        }
+    }, 1000);
+}
 
 function startQuiz() {
-    startScreenEl.classList.add("hide");
+    startScreenEl.setAttribute("class", "hide")
     updateQuestion();
-    quiz.classList.remove("hide");
+    quiz.setAttribute("class", "show")
     timerEl.setAttribute("class", "show")
     startTimer();    
 }
@@ -68,31 +81,24 @@ function updateQuestion() {
 
 }
 
-function startGame() {
-    intro.setAttribute("class", "hide");
-    updateQuestion();
-    questions.setAttribute("class", "show");
-    timerEl.setAttribute ("class", "show");
-    startTimer();
-    
-}
+
 
 function updateQuestion () {
-    if (questionIndex === question.length) {
+    if (quizQuestionIndex === quizQuestions.length) {
         setTimeout(endGame, 1500);
         return;
 
     }
 
 
-    questionEl.textContent = question[questionIndex].question;
+    questionEl.textContent = quizQuestions[quizQuestionIndex].question;
     choicesEl.innerHTML = "";
     resultEl.innerHTML = "";
     
 
-    for (var i = 0; i < question[questionIndex].choices.length; i++) {
+    for (var i = 0; i < quizQuestions[quizQuestionIndex].choices.length; i++) {
         var element = document.createElement("li");
-        element.textContent = question[questionIndex].choices[i];
+        element.textContent = quizQuestions[quizQuestionIndex].choices[i];
         choicesEl.appendChild(element);
     }
 
@@ -108,7 +114,7 @@ choicesEl.addEventListener("click", function (event) {
     var target = event.target;
 
     if (target.matches("li")) {
-        if (target.textContent === question[questionIndex].answer) {
+        if (target.textContent === quizQuestions[quizQuestionIndex].answer) {
             resultEl.textContent = "Correct!";
         } else {
             resultEl.textContent = "Incorrect!";
